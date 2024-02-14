@@ -1,5 +1,5 @@
-<h1 align="center">Hi 👋, I'm Youngmoo Park.</h1>
-<h3 align="center">A passionate JAVA backend WEB developer</h3>
+<h1 align="left">Hi 👋, I'm Youngmoo Park.</h1>
+<h3 align="left">A passionate JAVA backend WEB developer</h3>
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
