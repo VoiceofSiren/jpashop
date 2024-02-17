@@ -11,6 +11,10 @@ public class Address {
     private String street;
     private String zipcode;
 
+    /**
+     *  Default Constructor
+     *  - necessary: because of the reflection of JAVA
+     */
     protected Address() {
 
     }
