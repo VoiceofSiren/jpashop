@@ -16,8 +16,8 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     @Transactional(readOnly = false)
-    public void save(Item item) {
-        itemRepository.save(item);
+    public Long save(Item item) {
+        return itemRepository.save(item);
     }
 
     public Item findOne(Long itemId) {
