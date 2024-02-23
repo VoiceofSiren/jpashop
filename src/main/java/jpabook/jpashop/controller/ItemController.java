@@ -1,9 +1,9 @@
 package jpabook.jpashop.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.dto.ItemUpdateDTO;
 import jpabook.jpashop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -65,19 +65,9 @@ public class ItemController {
 
     @PostMapping("/items/{itemId}/edit")
     public String updateItem(@PathVariable(name = "itemId") Long itemId,
-                             @ModelAttribute(name = "form") BookForm form,
+                             @ModelAttribute(name = "form") ItemUpdateDTO itemUpdateDTO,
                              Model model) {
-        Book book = new Book();
-
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-
-        itemService.save(book);
-
+        itemService.updateBook(itemId, itemUpdateDTO);
         return "redirect:/items";
     }
 
