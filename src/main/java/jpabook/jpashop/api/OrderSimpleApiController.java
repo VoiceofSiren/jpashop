@@ -45,6 +45,14 @@ public class OrderSimpleApiController {
         return result;
     }
 
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDTO> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        return orders.stream()
+                .map(order -> new SimpleOrderDTO(order))
+                .collect(Collectors.toList());
+    }
+
     @Data
     static class SimpleOrderDTO {
         private Long orderId;
