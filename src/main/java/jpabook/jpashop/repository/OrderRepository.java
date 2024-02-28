@@ -88,4 +88,29 @@ public class OrderRepository {
             .getResultList();
     }
 
+    /**
+     * Collection Fetch JOIN
+     *      - OrderItems: Collection
+     *      - Item: OrderItems를 거친 Entity
+     *      ==> OrderItems와 Item은 각각 1:N 연관 관계와 관련되어 있으므로 Paging이 불가하다.
+     */
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o " +
+                            "join fetch o.member m " +
+                            "join fetch o.delivery d " +
+                            "join fetch o.orderItems oi " +
+                            "join fetch oi.item", Order.class
+                ).getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                        "select o from Order o " +
+                                "join fetch o.member m " +
+                                "join fetch o.delivery d ", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
