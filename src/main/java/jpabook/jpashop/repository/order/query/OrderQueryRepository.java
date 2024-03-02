@@ -45,7 +45,7 @@ public class OrderQueryRepository {
                 .getResultList();
     }
 
-    public List<OrderQueryDTO> findAllByDtoOptimization() {
+    public List<OrderQueryDTO> findAllDtoByOptimization() {
         List<OrderQueryDTO> orders = findOrders();
 
         List<Long> orderIds = orders.stream()
@@ -66,5 +66,16 @@ public class OrderQueryRepository {
         orders.forEach(orderQueryDTO -> orderQueryDTO.setOrderItems(orderItemMap.get(orderQueryDTO.getOrderId())));
 
         return orders;
+    }
+
+    public List<OrderFlatDTO> findAllDtoByFlattening() {
+        return em.createQuery("" +
+                "select new jpabook.jpashop.repository.order.query.OrderFlatDTO(o.id, m.name, o.orderDate, o.orderStatus, d.address, i.name, oi.orderPrice, oi.count) " +
+                    "from Order o " +
+                    "join o.member m " +
+                    "join o.delivery d " +
+                    "join o.orderItems oi " +
+                    "join oi.item i", OrderFlatDTO.class)
+                .getResultList();
     }
 }
